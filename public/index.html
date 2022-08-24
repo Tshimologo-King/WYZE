@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WYZE UP</title>
+</head>
+<body>
+    <div class="nav">
+        <a href="./careers.html"><button>Careers</button></a>
+        <a href="./login.html"><button>Login</button></a>
+        <a href="./register.html"><button>Sign Up</button></a>
+    </div>
+    <div id="careers"></div>
+</body>
+<style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .nav {
+      padding: 10px;
+      background-color: black;
+      height: 80px;
+    }
+    .nav a {
+      line-height: 60px;
+    }
+    .nav a button {
+      height: 50px;
+      padding: 5px;
+      float: right;
+      gap: 25px;
+      margin: 5px;
+    }
+</style>
+<script>
+    let careers = [];
+    const users = document.querySelector('careers');
+
+    fetch("http:localhost:3306/careers")
+        .then((res) => res.json())
+        .then((data) => {
+            careers = data;
+            console.log(data);
+            displayCareers(data);
+        });
+
+    function displayCareers(careers){
+
+        //create a variable that will get the id in html
+        careers.innerHTML ="";
+
+        //LOOP THROUGH THE CAREERS TO GET VALUES 
+        careers.forEach((career) => {
+            careers.innerHTML += 
+            `<div>
+                <p>PUSHIN P</p>
+                <h1>${career.idCareers}</h1>
+                <h2>${career.careerTitle}</h2>
+                <h3>${career.careerIndustry}</h3>
+                <h4>${career.careerDescription}</h4>
+                <h5>${career.careerURLImage}</h5>
+                <h6>${career.institutuions}</h6>
+                <h6>${career.careerDayInLife}</h6>
+            </div>`;
+        });
+    }
+    displayCareers(careers);
+</script>
+</html>
