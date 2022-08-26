@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../library/database_connection");
 
-//Getting all Saved items for the User Profile Tab in DB
+//Getting all Subscriptions in DB
 router.get("/", (req, res) => {
   try {
-    connection.query("SELECT * FROM Saved", (err, result) => {
+    connection.query("SELECT * FROM subscriptions", (err, result) => {
       if (err) throw err;
       res.send(result);
     });
@@ -15,11 +15,11 @@ router.get("/", (req, res) => {
   }
 });
 
-//Getting all Saved Items by id
+//Getting all Subscriptions of users by id
 router.get("/:id", (req, res) => {
   try {
     connection.query(
-      `SELECT * FROM Saved where idSaved=${req.params.id}`,
+      `SELECT * FROM Subscriptions where idsubscriptions=${req.params.id}`,
       (err, result) => {
         if (err) throw err;
         res.send(result);
@@ -31,19 +31,13 @@ router.get("/:id", (req, res) => {
   }
 });
 
-//Adding a new Saved Items into the db
+//Adding a new Subscriber into the db
 router.post("/", (req, res) => {
-  const {
-    idSaved,
-    idPosts,
-    idArticles,
-    idPodcasts,
-    idCareers,
-  } = req.body;
+  const { idsubscriptions, status, NoOfSubscriptions, startOfSubscription, endOfSubscription, paymentMethod} = req.body;
 
   try {
     connection.query(
-      `INSERT INTO Saved (idSaved, idPosts, idArticles, idPodcasts, idCareers) VALUES ("${idSaved}","${idPosts}", "${idArticles}", "${idPodcasts}", "${idCareers}")`,
+      `INSERT INTO subscriptions (idsubscriptions, status, NoOfSubscriptions, startOfSubscription, endOfSubscription, paymentMethod ) VALUES ("${idsubscriptions}","${status}", "${NoOfSubscriptions}", "${startOfSubscription}", "${endOfSubscription}", "${paymentMethod}")`,
       (err, result) => {
         if (err) throw err;
         res.send(result);
@@ -59,7 +53,7 @@ router.post("/", (req, res) => {
 router.delete("/:id", (req, res) => {
   try {
     connection.query(
-      `DELETE FROM Saved WHERE idSaved=${req.params.id}`,
+      `DELETE FROM Subscriptions WHERE idsubscriptions=${req.params.id}`,
       (err, result) => {
         if (err) throw err;
         res.send(result);

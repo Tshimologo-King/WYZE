@@ -13,6 +13,7 @@ const posts = require("./Routes/posts");
 const podcasts = require("./Routes/podcast");
 const article = require("./Routes/articles");
 const saved = require("./Routes/saved");
+const subscriptions = require("./Routes/subscriptions");
 
 //Set The Port
 app.set("port", process.env.PORT || 3000);
@@ -33,12 +34,13 @@ app.use("/posts", posts);
 app.use("/podcasts", podcasts);
 app.use("/articles", article);
 app.use("/saved", saved);
+app.use("/subscriptions", subscriptions);
 
 //Dont let local development give errors
 app.use(cors());
 const PORT = process.env.PORT || 3000
 
 app.listen(app.get("port"), () => {
-  console.log(`Listening for calls on prt ${PORT})}`);
+  console.log(`Listening for calls on prt ${PORT}`);
   console.log("Press Ctrl+C to exit server");
 });

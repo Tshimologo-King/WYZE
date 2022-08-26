@@ -40,13 +40,12 @@ router.post("/", (req, res) => {
     userName,
     userEmail,
     userPassword,
-    userAddress,
-    userImage,
     userRole,
+    subscription
   } = req.body;
   try {
     connection.query(
-      `INSERT INTO Users (idUsers,userName,userEmail,userPassword,userAddress,userImage,userRole) VALUES ("${idUsers}","${userName}", "${userEmail}", "${userPassword}", "${userAddress}", "${userImage}", "${userRole}")`,
+      `INSERT INTO Users (idUsers,userName,userEmail,userPassword,userRole, subscription) VALUES ("${idUsers}","${userName}", "${userEmail}", "${userPassword}", "${userRole}", "${subscription}")`,
       (err, result) => {
         if (err) throw err;
         res.send(result);
@@ -100,9 +99,8 @@ router.put("/update-user/:id", (req, res) => {
           userName: req.body.userName,
           userEmail: req.body.userEmail,
           userPassword: hash,
-          userAddress: req.body.userAddress,
-          userImage: req.body.userImage,
           userRole: req.body.userRole,
+          subscription: req.body.subscription
         };
         connection.query(updateSql, updateUser, (err, updated) => {
           if (err) throw err;
@@ -119,14 +117,14 @@ router.put("/update-user/:id", (req, res) => {
 });
 router.delete("/:id", (req, res) => {
   try {
-    con.query(
-      `DELETE FROM users WHERE user_id='${req.params.id}'`,
+    connection.query(
+      `DELETE FROM users WHERE idUsers='${req.params.id}'`,
       (err, result) => {
         if (err) throw err;
         res.send(result);
       }
     );
-  } catch (error) {
+  } catch (error) { 
     console.log(error);
     res.status(400).send(error);
   }
@@ -141,9 +139,8 @@ router.post("/register", (req, res) => {
       userName,
       userEmail,
       userPassword,
-      userAddress,
-      userImage,
       userRole,
+      subscription
     } = req.body;
 
     //Start of Hashing/Encryption
@@ -155,9 +152,8 @@ router.post("/register", (req, res) => {
       userEmail,
       //Sending these values to be stored within the table
       userPassword: hash,
-      userAddress,
-      userImage,
       userRole,
+      subscription
     };
 
     connection.query(sql, user, (err, result) => {
@@ -350,7 +346,7 @@ router.put("reset-psw/:id", (req, res) => {
         userAddress: result[0].userAddress,
         userRole: result[0].userRole,
         userImage: result[0].userImage,
-
+        subscription: result[0].subscription,
         // Only thing im changing in table
         password: hash,
       };

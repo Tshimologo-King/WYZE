@@ -35,18 +35,18 @@ router.post("/", (req, res) => {
         idPosts,
         userName,
         postDescription,
-        postURL, 
         postDate,
         idUsers,
     } = req.body;
 
-    const post_Date = new Date().toISOString().slice(0, 19).replace("T", " ");
     try {
-        connection.query(`INSERT INTO Posts (idPosts, userName, idUsers, postDescription, postURL, postDate) VALUES ("${idPosts}","${userName}", "${postDescription}", "${postURL}", "${postDate}", "${idUsers}")`,
+      connection.query(
+        `INSERT INTO Posts (idPosts, userName, idUsers, postDescription, postDate) VALUES ("${idPosts}","${userName}", "${idUsers}", "${postDescription}", "${postDate}")`,
         (err, result) => {
-            if (err) throw err;
-            res.send(result);
-        });
+          if (err) throw err;
+          res.send(result);
+        }
+      );
     } catch (error) {
         console.log(error);
         res.status(400).send(error);
