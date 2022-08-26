@@ -35,14 +35,8 @@ router.get("/:id", (req, res) => {
 
 //ADDING A NEW USER
 router.post("/", (req, res) => {
-  const {
-    idUsers,
-    userName,
-    userEmail,
-    userPassword,
-    userRole,
-    subscription
-  } = req.body;
+  const { idUsers, userName, userEmail, userPassword, userRole, subscription } =
+    req.body;
   try {
     connection.query(
       `INSERT INTO Users (idUsers,userName,userEmail,userPassword,userRole, subscription) VALUES ("${idUsers}","${userName}", "${userEmail}", "${userPassword}", "${userRole}", "${subscription}")`,
@@ -100,7 +94,7 @@ router.put("/update-user/:id", (req, res) => {
           userEmail: req.body.userEmail,
           userPassword: hash,
           userRole: req.body.userRole,
-          subscription: req.body.subscription
+          subscription: req.body.subscription,
         };
         connection.query(updateSql, updateUser, (err, updated) => {
           if (err) throw err;
@@ -124,7 +118,7 @@ router.delete("/:id", (req, res) => {
         res.send(result);
       }
     );
-  } catch (error) { 
+  } catch (error) {
     console.log(error);
     res.status(400).send(error);
   }
@@ -135,13 +129,8 @@ router.delete("/:id", (req, res) => {
 router.post("/register", (req, res) => {
   try {
     let sql = "INSERT INTO Users SET ?";
-    const {
-      userName,
-      userEmail,
-      userPassword,
-      userRole,
-      subscription
-    } = req.body;
+    const { userName, userEmail, userPassword, userRole, subscription } =
+      req.body;
 
     //Start of Hashing/Encryption
     const salt = bcrypt.genSaltSync(10);
@@ -153,7 +142,7 @@ router.post("/register", (req, res) => {
       //Sending these values to be stored within the table
       userPassword: hash,
       userRole,
-      subscription
+      subscription,
     };
 
     connection.query(sql, user, (err, result) => {
@@ -194,8 +183,6 @@ router.post("/login", (req, res) => {
               idUsers: result[0].idUsers,
               userName: result[0].userName,
               userEmail: result[0].userEmail,
-              userAddress: result[0].userAddress,
-              userImage: result[0].userImage,
               userRole: result[0].userRole,
             },
           };
