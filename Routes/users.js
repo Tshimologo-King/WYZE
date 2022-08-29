@@ -52,30 +52,6 @@ router.post("/", (req, res) => {
 });
 
 //Updating a user
-// router.put("/:id", (req, res) => {
-//   const {
-//     userName,
-//     userEmail,
-//     userPassword,
-//     userAddress,
-//     userImage,
-//     userRole,
-//   } = req.body;
-//   try {
-//     connection.query(
-//       `UPDATE Users
-//        SET  userName = "${userName}", userEmail = "${userEmail}", userPassword = "${userPassword}", userAddress = "${userAddress}", userImage = "${userImage}", userRole = "${userRole}"
-//        WHERE idUsers='${req.params.id}'`,
-//       (err, result) => {
-//         if (err) throw err;
-//         res.send(result);
-//       }
-//     );
-//   } catch (error) {
-//     console.log(error);
-//     res.status(400).send(error);
-//   }
-// });
 // Update user
 router.put("/update-user/:id", (req, res) => {
   try {
@@ -109,6 +85,7 @@ router.put("/update-user/:id", (req, res) => {
     console.log(error);
   }
 });
+//Deleting a user
 router.delete("/:id", (req, res) => {
   try {
     connection.query(
