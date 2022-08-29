@@ -37,10 +37,16 @@ app.use("/saved", saved);
 app.use("/subscriptions", subscriptions);
 
 //Dont let local development give errors
-app.use(cors());
-const PORT = process.env.PORT || 3000
+app.use(
+  cors({
+    origin: ["http://192.168.8.102:8080/", "http://localhost:8080"],
+    credentials: true,
+  })
+);
+const PORT = process.env.PORT || 3000;
 
 app.listen(app.get("port"), () => {
   console.log(`Listening for calls on prt ${PORT}`);
   console.log("Press Ctrl+C to exit server");
+  credentials: "include";
 });
