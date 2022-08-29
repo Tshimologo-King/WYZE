@@ -27,6 +27,12 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/" + "public/index.html");
 });
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  next();
+});
+
 //use routes
 app.use("/users", users);
 app.use("/careers", careers);
@@ -50,3 +56,9 @@ app.listen(app.get("port"), () => {
   console.log("Press Ctrl+C to exit server");
   credentials: "include";
 });
+
+module.exports = {
+  devServer: {
+    Proxy: "*",
+  },
+};
