@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
   try {
     connection.query("SELECT * FROM Careers", (err, result) => {
       if (err) throw err;
-      res.send(result);
+      res.status(200).json({ results: result });
     });
   } catch (error) {
     console.log(error);
@@ -22,7 +22,7 @@ router.get("/:id", (req, res) => {
       `SELECT * FROM Careers WHERE idCareers=${req.params.id}`,
       (err, result) => {
         if (err) throw err;
-        res.send(result);
+        res.status(200).json({ results: result });
       }
     );
   } catch (error) {
@@ -42,7 +42,7 @@ router.post("/", (req, res) => {
     institutions,
     careerDayInLife,
   } = req.body;
- 
+
   try {
     connection.query(
       `INSERT INTO Careers (idCareers,careerTitle,careerIndustry,careerDescription,careerURLImage,institutions,careerDayInLife) VALUES ("${idCareers}","${careerTitle}", "${careerIndustry}", "${careerDescription}", "${careerURLImage}", "${institutions}", "${careerDayInLife}")`,
@@ -65,7 +65,7 @@ router.put("/:id", (req, res) => {
     careerDescription,
     careerURLImage,
     institutions,
-    careerDayInLife
+    careerDayInLife,
   } = req.body;
   try {
     connection.query(
