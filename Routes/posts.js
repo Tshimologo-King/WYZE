@@ -32,6 +32,7 @@ router.get("/:id", (req, res) => {
 //Adding a new post into the db
 router.post("/", (req, res) => {
     const {
+        idPosts,
         postTitle,
         userName,
         postDescription,
@@ -42,7 +43,7 @@ router.post("/", (req, res) => {
        .replace("T", " ");
     try {
       connection.query(
-        `INSERT INTO Posts ( postTitle, userName, postDescription, postDate) VALUES ( "${postTitle}", "${userName}", "${postDescription}", "${postDate}")`,
+        `INSERT INTO Posts ( idPosts, postTitle, userName, postDescription, postDate) VALUES ( "${idPosts}","${postTitle}", "${userName}", "${postDescription}", "${postDate}")`,
         (err, result) => {
           if (err) throw err;
           res.send(result);
