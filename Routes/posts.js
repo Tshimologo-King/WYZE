@@ -32,16 +32,17 @@ router.get("/:id", (req, res) => {
 //Adding a new post into the db
 router.post("/", (req, res) => {
     const {
-        idPosts,
+        postTitle,
         userName,
         postDescription,
-        postDate,
-        idUsers,
     } = req.body;
-
+     const postDate = new Date()
+       .toISOString()
+       .slice(0, 19)
+       .replace("T", " ");
     try {
       connection.query(
-        `INSERT INTO Posts (idPosts, userName, idUsers, postDescription, postDate) VALUES ("${idPosts}","${userName}", "${idUsers}", "${postDescription}", "${postDate}")`,
+        `INSERT INTO Posts ( postTitle, userName, postDescription, postDate) VALUES ( "${postTitle}", "${userName}", "${postDescription}", "${postDate}")`,
         (err, result) => {
           if (err) throw err;
           res.send(result);
@@ -56,15 +57,12 @@ router.post("/", (req, res) => {
 //Edit and Update by id
 router.put("/:id", (req, res) => {
   const {
-    userName,
+    postTitle,
     postDescription,
-    postURL,
-    postDate,
-    idUsers,
   } = req.body;
   try {
     connection.query(
-      `UPDATE Posts SET userName = "${userName}", postDescription = "${postDescription}", postURL = "${postURL}", postDate = "${postDate}", idUsers = "${idUsers}" WHERE idPosts=${req.params.id}`,
+      `UPDATE Posts SET postTitle = "${postTitle}}", postDescription = "${postDescription}" WHERE idPosts=${req.params.id}`,
       (err, result) => {
         if (err) throw err;
         res.send(result);

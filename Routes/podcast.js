@@ -37,11 +37,12 @@ router.post("/", (req, res) => {
     idPodcasts,
     podcastTitle,
     podcastLink,
+    podTranscript
   } = req.body;
 
   try {
     connection.query(
-      `INSERT INTO Podcasts (idPodcasts, podcastTitle, podcastLink) VALUES ("${idPodcasts}","${podcastTitle}", "${podcastLink}")`,
+      `INSERT INTO Podcasts (idPodcasts, podcastTitle, podcastLink, podTranscript) VALUES ("${idPodcasts}","${podcastTitle}", "${podcastLink}", "${podTranscript}")`,
       (err, result) => {
         if (err) throw err;
         res.send(result);
@@ -55,10 +56,10 @@ router.post("/", (req, res) => {
 
 //Edit and Update by id
 router.put("/:id", (req, res) => {
-  const { podcastTitle, podcastLink } = req.body;
+  const { podcastTitle, podcastLink, podTranscript } = req.body;
   try {
     connection.query(
-      `UPDATE Podcasts SET podcastTitle = "${podcastTitle}", podcastLink = "${podcastLink}" WHERE idPodcasts=${req.params.id}`,
+      `UPDATE Podcasts SET podcastTitle = "${podcastTitle}", podcastLink = "${podcastLink}", podTranscript = "${podTranscript}" WHERE idPodcasts=${req.params.id}`,
       (err, result) => {
         if (err) throw err;
         res.send(result);
