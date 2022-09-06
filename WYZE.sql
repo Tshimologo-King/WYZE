@@ -1,1 +1,1 @@
-select * from Posts
+alter table Article add column author varchar(100)
