@@ -33,11 +33,10 @@ router.get("/:id", (req, res) => {
 
 //Adding a new post into the db
 router.post("/", (req, res) => {
-  const { postTitle, postDescription, userName, idUsers } = req.body;
-  const postDate = new Date().toISOString().slice(0, 19).replace("T", " ");
+  const { postDescription, idUsers, postTitle,userName } = req.body;
   try {
     connection.query(
-      `INSERT INTO Posts ( postTitle, postDescription, postDate, userName, idUsers) VALUES ("${postTitle}", "${postDescription}", "${postDate}", "${userName}", "${idUsers}")`,
+      `INSERT INTO Posts ( postDescription, idUsers, postTitle, userName) VALUES ( "${postDescription}","${idUsers}", "${postTitle}", "${userName}" )`,
       (err, result) => {
         if (err) throw err;
         res.send(result);
