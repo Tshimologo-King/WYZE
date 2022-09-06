@@ -33,13 +33,11 @@ router.get("/:id", (req, res) => {
 
 //Adding a new Article into the db
 router.post("/", (req, res) => {
-  const { idArticle, articleHeading, articleDescription, institutuion, articleDate } =
+  const { idArticle, articleHeading, articleDescription, author } =
     req.body;
-
-  const article_Date = new Date().toISOString().slice(0, 19).replace("T", " ");
   try {
     connection.query(
-      `INSERT INTO Article (idArticle, articleHeading, articleDescription, institutuion, articleDate) VALUES ("${idArticle}","${articleHeading}", "${articleDescription}", "${institutuion}", "${articleDate}")`,
+      `INSERT INTO Article (idArticle, articleHeading, articleDescription, author) VALUES ("${idArticle}","${articleHeading}", "${articleDescription}", "${author}")`,
       (err, result) => {
         if (err) throw err;
         res.send(result);
@@ -56,12 +54,11 @@ router.put("/:id", (req, res) => {
   const {
     articleHeading,
     articleDescription,
-    institutuion,
-    articleDate,
+    author
   } = req.body;
   try {
     connection.query(
-      `UPDATE Article SET articleHeading = "${articleHeading}", articleDescription = "${articleDescription}", institutuion = "${institutuion}", articleDate = "${articleDate}" WHERE idArticle=${req.params.id}`,
+      `UPDATE Article SET articleHeading = "${articleHeading}", articleDescription = "${articleDescription}", author = "${author}" WHERE idArticle=${req.params.id}`,
       (err, result) => {
         if (err) throw err;
         res.send(result);
