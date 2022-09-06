@@ -31,7 +31,7 @@ router.get("/:id", (req, res) => {
   }
 });
 
-//Adding a new post into the db
+//Adding a new post into the db // push update
 router.post("/", (req, res) => {
   const { postDescription, idUsers, postTitle, userName } = req.body;
   try {
