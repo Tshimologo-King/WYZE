@@ -33,11 +33,11 @@ router.get("/:id", (req, res) => {
 
 //Adding a new Subscriber into the db
 router.post("/", (req, res) => {
-  const { idsubscriptions, status, NoOfSubscriptions, startOfSubscription, endOfSubscription, paymentMethod} = req.body;
+  const { idsubscriptions, status, userName, userEmail} = req.body;
 
   try {
     connection.query(
-      `INSERT INTO subscriptions (idsubscriptions, status, NoOfSubscriptions, startOfSubscription, endOfSubscription, paymentMethod ) VALUES ("${idsubscriptions}","${status}", "${NoOfSubscriptions}", "${startOfSubscription}", "${endOfSubscription}", "${paymentMethod}")`,
+      `INSERT INTO subscriptions (idsubscriptions, status, userName, userEmail ) VALUES ("${idsubscriptions}","${status}", "${userName}", "${userEmail}")`,
       (err, result) => {
         if (err) throw err;
         res.send(result);
@@ -53,7 +53,7 @@ router.post("/", (req, res) => {
 router.delete("/:id", (req, res) => {
   try {
     connection.query(
-      `DELETE FROM Subscriptions WHERE idsubscriptions=${req.params.id}`,
+      `DELETE FROM subscriptions WHERE idsubscriptions=${req.params.id}`,
       (err, result) => {
         if (err) throw err;
         res.send(result);

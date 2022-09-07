@@ -51,6 +51,7 @@ router.post("/", (req, res) => {
   }
 });
 
+
 //Updating a user
 // Update user
 router.put("/update-user/:id", (req, res) => {

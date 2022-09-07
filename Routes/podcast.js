@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../library/database_connection");
+const adminControl = require("../public/controllers/admin");
 
-//Getting all Podcasts for the Podcast Tab in DB
+//Getting all Podcasts in DB
 router.get("/", (req, res) => {
   try {
     connection.query("SELECT * FROM Podcasts", (err, result) => {
@@ -15,7 +16,7 @@ router.get("/", (req, res) => {
   }
 });
 
-//Getting all posts by id
+//Getting all podcasts by id
 router.get("/:id", (req, res) => {
   try {
     connection.query(
@@ -33,58 +34,17 @@ router.get("/:id", (req, res) => {
 
 //Adding a new Podcast into the db
 router.post("/", (req, res) => {
-  const {
-    idPodcasts,
-    podcastTitle,
-    podcastLink,
-    podTranscript
-  } = req.body;
-
-  try {
-    connection.query(
-      `INSERT INTO Podcasts (idPodcasts, podcastTitle, podcastLink, podTranscript) VALUES ("${idPodcasts}","${podcastTitle}", "${podcastLink}", "${podTranscript}")`,
-      (err, result) => {
-        if (err) throw err;
-        res.send(result);
-      }
-    );
-  } catch (error) {
-    console.log(error);
-    res.status(400).send(error);
-  }
+  return adminControl.addPodcasts(req, res);
 });
 
 //Edit and Update by id
 router.put("/:id", (req, res) => {
-  const { podcastTitle, podcastLink, podTranscript } = req.body;
-  try {
-    connection.query(
-      `UPDATE Podcasts SET podcastTitle = "${podcastTitle}", podcastLink = "${podcastLink}", podTranscript = "${podTranscript}" WHERE idPodcasts=${req.params.id}`,
-      (err, result) => {
-        if (err) throw err;
-        res.send(result);
-      }
-    );
-  } catch (error) {
-    console.log(error);
-    res.status(400).send(error);
-  }
+  return adminControl.editPodcasts(req, res);
 });
 
 //Delete product using id
 router.delete("/:id", (req, res) => {
-  try {
-    connection.query(
-      `DELETE FROM Podcasts WHERE idPodcasts=${req.params.id}`,
-      (err, result) => {
-        if (err) throw err;
-        res.send(result);
-      }
-    );
-  } catch (error) {
-    console.log(error);
-    res.status(400).send(error);
-  }
+  return adminControl.deletePodcasts(req, res);
 });
 
 module.exports = router;

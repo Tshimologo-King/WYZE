@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../library/database_connection");
+const adminControl = require("../public/controllers/admin");
 
 //Getting all posts for the Community Tab in DB
 router.get("/", (req, res) => {
@@ -33,52 +34,17 @@ router.get("/:id", (req, res) => {
 
 //Adding a new post into the db // push update
 router.post("/", (req, res) => {
-  const { postDescription, idUsers, postTitle, userName } = req.body;
-  try {
-    connection.query(
-      `INSERT INTO Posts ( postDescription, idUsers, postTitle, userName) VALUES ( "${postDescription}","${idUsers}", "${postTitle}", "${userName}" )`,
-      (err, result) => {
-        if (err) throw err;
-        res.send(result);
-      }
-    );
-  } catch (error) {
-    console.log(error);
-    res.status(400).send(error);
-  }
+  return adminControl.addPosts(req, res);
 });
 
 //Edit and Update by id
 router.put("/:id", (req, res) => {
-  const { postTitle, postDescription } = req.body;
-  try {
-    connection.query(
-      `UPDATE Posts SET postTitle = "${postTitle}}", postDescription = "${postDescription}" WHERE idPosts=${req.params.id}`,
-      (err, result) => {
-        if (err) throw err;
-        res.send(result);
-      }
-    );
-  } catch (error) {
-    console.log(error);
-    res.status(400).send(error);
-  }
+  return adminControl.editPosts(req, res);
 });
 
 //Delete product using id
 router.delete("/:id", (req, res) => {
-  try {
-    connection.query(
-      `DELETE FROM Posts WHERE idPosts=${req.params.id}`,
-      (err, result) => {
-        if (err) throw err;
-        res.send(result);
-      }
-    );
-  } catch (error) {
-    console.log(error);
-    res.status(400).send(error);
-  }
+  return adminControl.deletePosts(req, res);
 });
 
 module.exports = router;
