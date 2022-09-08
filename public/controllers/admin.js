@@ -94,7 +94,7 @@ async function deleteCareers(req, res) {
 
 //ADD NEW POSTS, EDIT POSTS + DELETE
 async function addPosts(req, res) {
-    if (req.Users.userRole === "admin") {
+    if (req.userRole === "admin") {
         const { postDescription, postTitle, author } = req.body;
         try {
           connection.query(
