@@ -21,7 +21,6 @@ async function addSubscriber(req, res) {
 
 //ADD NEW CAREERS, EDIT CAREERS + DELETE
 async function addCareers(req, res){
-    
         const {
           idCareers,
           careerTitle,
@@ -47,7 +46,6 @@ async function addCareers(req, res){
 }
 
 async function editCareers(req, res) {
-    if (req.Users.userRole === "admin") {
         const {
           careerTitle,
           careerIndustry,
@@ -70,10 +68,10 @@ async function editCareers(req, res) {
           res.status(400).send(error);
         }
     }
-}
+
 
 async function deleteCareers(req, res) {
-    if (req.Users.userRole === "admin") {
+    
         try {
           connection.query(
             `DELETE FROM Careers WHERE career_id=${req.params.id}`,
@@ -86,12 +84,10 @@ async function deleteCareers(req, res) {
           console.log(error);
           res.status(400).send(error);
         }
-    }
 }
 
 //ADD NEW POSTS, EDIT POSTS + DELETE
 async function addPosts(req, res) {
-    if (req.userRole === "admin") {
         const { postDescription, postTitle, author } = req.body;
         try {
           connection.query(
@@ -105,11 +101,9 @@ async function addPosts(req, res) {
           console.log(error);
           res.status(400).send(error);
         }
-    }
 }
 
 async function editPosts(req, res) {
-    if (req.User.userRole === "admin") {
         const { postTitle, postDescription, author } = req.body;
         
         try {
@@ -125,10 +119,9 @@ async function editPosts(req, res) {
           res.status(400).send(error);
         }
     }
-}
+
 
 async function deletePosts(req, res) {
-    if (req.User.userRole === "admin") {
         try {
           connection.query(
             `DELETE FROM Posts WHERE idPosts=${req.params.id}`,
@@ -141,12 +134,10 @@ async function deletePosts(req, res) {
           console.log(error);
           res.status(400).send(error);
         }
-    }
 }
 
 //ADD NEW PODCAST, EDIT + DELETE PODCASTS
 async function addPodcasts(req, res) {
-    if (req.Users.userRole === "admin") {
         const { idPodcasts, podcastTitle, podcastLink, podTranscript } = req.body;
 
         try {
@@ -162,10 +153,9 @@ async function addPodcasts(req, res) {
         res.status(400).send(error);
         }
     }
-}
+
 
 async function editPodcasts(req, res) {
-    if (req.Users.userRole === "admin") {
         const { podcastTitle, podcastLink, podTranscript } = req.body;
         try {
           connection.query(
@@ -180,10 +170,9 @@ async function editPodcasts(req, res) {
           res.status(400).send(error);
         }
     }
-}
+
 
 async function deletePodcasts(req, res) {
-    if (req.Users.userRole === "admin") {
         try {
           connection.query(
             `DELETE FROM Podcasts WHERE idPodcasts=${req.params.id}`,
@@ -197,11 +186,10 @@ async function deletePodcasts(req, res) {
           res.status(400).send(error);
         }
     }
-}
+
 
 //ADD NEW ARTICLES, EDIT + DELETE ARTICLES
 async function addArticles(req, res) {
-    if(req.Users.userRole === "admin") {
         const { idArticle, articleHeading, articleDescription, author } = req.body;
         try {
           connection.query(
@@ -216,10 +204,9 @@ async function addArticles(req, res) {
           res.status(400).send(error);
         }
     }
-}
+
 
 async function editArticle(req, res) {
-    if (req.Users.userRole === "admin") {
         const { articleHeading, articleDescription, author } = req.body;
         try {
           connection.query(
@@ -234,10 +221,9 @@ async function editArticle(req, res) {
           res.status(400).send(error);
         }
     }
-}
+
 
 async function deleteArticle(req, res) {
-    if (req.Users.userRole === "admin") {
         try {
           connection.query(
             `DELETE FROM Article WHERE idArticle=${req.params.id}`,
@@ -251,7 +237,7 @@ async function deleteArticle(req, res) {
           res.status(400).send(error);
         }
     }
-}
+
 
 module.exports = {
     addCareers, editCareers, deleteCareers, addPosts, editPosts, deletePosts, addArticles, editArticle, deleteArticle, addPodcasts, editPodcasts, deletePodcasts, addSubscriber
