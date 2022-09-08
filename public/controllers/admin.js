@@ -21,7 +21,7 @@ async function addSubscriber(req, res) {
 
 //ADD NEW CAREERS, EDIT CAREERS + DELETE
 async function addCareers(req, res){
-    if (req.Users.userRole === "admin") {
+    
         const {
           idCareers,
           careerTitle,
@@ -44,9 +44,6 @@ async function addCareers(req, res){
           console.log(error);
           res.status(400).send(error);
         }
-    } else {
-        res.send("Not authorised");
-    }
 }
 
 async function editCareers(req, res) {
