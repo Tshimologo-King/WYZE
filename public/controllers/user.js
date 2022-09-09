@@ -5,7 +5,7 @@ require("dotenv").config();
 
 //ADD SUSBSCRIPTION USER
 async function addSubscription(req, res) {
-  const { idSubscriptions, status, userName, userEmail } = req.body;
+  const { status, userName, userEmail } = req.body;
   try {
     connection.query(
       `INSERT INTO subscribers(status, userName, userEmail) VALUES ("${status}", "${userName}", "${userEmail}")`,
