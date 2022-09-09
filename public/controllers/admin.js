@@ -4,21 +4,6 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 
-//ADD SUSBSCRIPTION USER
-async function addSubscriber(req, res) {
-    const { idSubscriptions, status, userName, userEmail } = req.body;
-    try{
-        connection.query(`INSERT INTO subscriptions(idSubsccriptions, status, userName, userEmail) VALUES ("${idSubscriptions}", "${status}", "${userName}", "${userEmail}")`,
-        (err, result) => {
-            if (err) throw err;
-            res.send(result);
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(404).send(error);
-    }
-}
-
 //ADD NEW CAREERS, EDIT CAREERS + DELETE
 async function addCareers(req, res){
         const {
@@ -240,5 +225,5 @@ async function deleteArticle(req, res) {
 
 
 module.exports = {
-    addCareers, editCareers, deleteCareers, addPosts, editPosts, deletePosts, addArticles, editArticle, deleteArticle, addPodcasts, editPodcasts, deletePodcasts, addSubscriber
+    addCareers, editCareers, deleteCareers, addPosts, editPosts, deletePosts, addArticles, editArticle, deleteArticle, addPodcasts, editPodcasts, deletePodcasts
 };

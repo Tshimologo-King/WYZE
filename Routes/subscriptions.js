@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../library/database_connection");
+const userControl = require("../public/controllers/user")
 
 //Getting all Subscriptions in DB
 router.get("/", (req, res) => {
@@ -33,36 +34,12 @@ router.get("/:id", (req, res) => {
 
 //Adding a new Subscriber into the db
 router.post("/", (req, res) => {
-  const { idsubscriptions, status, userName, userEmail} = req.body;
-
-  try {
-    connection.query(
-      `INSERT INTO subscriptions (idsubscriptions, status, userName, userEmail ) VALUES ("${idsubscriptions}","${status}", "${userName}", "${userEmail}")`,
-      (err, result) => {
-        if (err) throw err;
-        res.send(result);
-      }
-    );
-  } catch (error) {
-    console.log(error);
-    res.status(400).send(error);
-  }
+  return userControl.addSubscription(req, res);
 });
 
 //Delete product using id
 router.delete("/:id", (req, res) => {
-  try {
-    connection.query(
-      `DELETE FROM subscriptions WHERE idsubscriptions=${req.params.id}`,
-      (err, result) => {
-        if (err) throw err;
-        res.send(result);
-      }
-    );
-  } catch (error) {
-    console.log(error);
-    res.status(400).send(error);
-  }
+  return userControl.cancelSubscription(req, res);
 });
 
 module.exports = router;
