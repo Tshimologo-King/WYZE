@@ -6,7 +6,7 @@ const userControl = require("../public/controllers/user")
 //Getting all Subscriptions in DB
 router.get("/", (req, res) => {
   try {
-    connection.query("SELECT * FROM subscriptions", (err, result) => {
+    connection.query("SELECT * FROM subscribers", (err, result) => {
       if (err) throw err;
       res.send(result);
     });
@@ -20,7 +20,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   try {
     connection.query(
-      `SELECT * FROM Subscriptions where idsubscriptions=${req.params.id}`,
+      `SELECT * FROM subscribers where idsubscriber=${req.params.id}`,
       (err, result) => {
         if (err) throw err;
         res.send(result);
