@@ -23,7 +23,7 @@ router.get("/:id", (req, res) => {
       `SELECT * FROM Careers WHERE idCareers=${req.params.id}`,
       (err, result) => {
         if (err) throw err;
-        res.status(200).json({ results: result });
+        res.status(200).json({ results: result[0] });
       }
     );
   } catch (error) {
@@ -39,7 +39,7 @@ router.post("/", (req, res) => {
 
 //Edit and Update by id
 router.put("/:id", (req, res) => {
-  return adminControl.editCareers(req,res);
+  return adminControl.editCareers(req, res);
 });
 
 //Delete product using id
