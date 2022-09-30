@@ -6,9 +6,10 @@ const adminControl = require("../public/controllers/admin");
 //Getting all the CAREERS from the db
 router.get("/", (req, res) => {
   try {
-    connection.query("SELECT * FROM Careers", (err, result) => {
+    let sql = "SELECT * FROM Careers";
+    connection.query(sql, (err, result) => {
       if (err) throw err;
-      res.status(200).json({ results: result });
+      res.status(200).json(result);
     });
   } catch (error) {
     console.log(error);
@@ -23,7 +24,7 @@ router.get("/:id", (req, res) => {
       `SELECT * FROM Careers WHERE idCareers=${req.params.id}`,
       (err, result) => {
         if (err) throw err;
-        res.status(200).json({ results: result[0] });
+        res.status(200).json(result);
       }
     );
   } catch (error) {
