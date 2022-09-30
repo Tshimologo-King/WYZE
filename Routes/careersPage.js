@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
     let sql = "SELECT * FROM Careers";
     connection.query(sql, (err, result) => {
       if (err) throw err;
-      res.status(200).json(result);
+      res.json({result: result});
     });
   } catch (error) {
     console.log(error);
@@ -24,7 +24,7 @@ router.get("/:id", (req, res) => {
       `SELECT * FROM Careers WHERE idCareers=${req.params.id}`,
       (err, result) => {
         if (err) throw err;
-        res.status(200).json(result);
+        res.json({result});
       }
     );
   } catch (error) {
